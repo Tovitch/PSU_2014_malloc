@@ -5,7 +5,7 @@
 ## Login   <kruszk_t@epitech.net>
 ## 
 ## Started on  Tue Jan 27 12:20:04 2015 kruszk_t
-## Last update Wed Jan 28 12:07:11 2015 kruszk_t
+## Last update Tue Feb 10 12:07:52 2015 kruszk_t
 ##
 
 SRC		= src/main.c
@@ -13,7 +13,8 @@ SRC		= src/main.c
 SRC_LIB		= src/malloc.c		\
 		  src/realloc.c		\
 		  src/calloc.c		\
-		  src/free.c
+		  src/free.c		\
+		  src/show_alloc_mem.c
 
 NAME		= malloc
 
@@ -33,7 +34,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 		$(CC) -fPIC -shared $(SRC_LIB) -o $(LIBNAME) -I./inc
-		$(CC) -o $(NAME) $(OBJ)
+		$(CC) -o $(NAME) $(OBJ) -Iinc
 
 clean:
 		$(RM) $(OBJ) $(OBJ_LIB)

@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Tue Jan 27 18:17:43 2015 kruszk_t
-** Last update Wed Jan 28 10:18:35 2015 kruszk_t
+** Last update Tue Feb 10 10:07:31 2015 kruszk_t
 */
 
 #ifndef MALLOC_H_
@@ -23,5 +23,6 @@ typedef struct		s_metaData
 void			*malloc(size_t size);
 void			*realloc(void *ptr, size_t size);
 void			free(void *ptr);
+void			show_alloc_mem();
 
 #endif /* !MALLOC_H_ */

@@ -5,12 +5,14 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Tue Jan 27 12:27:26 2015 kruszk_t
-** Last update Wed Jan 28 11:46:10 2015 kruszk_t
+** Last update Tue Feb 10 12:49:04 2015 kruszk_t
 */
 
 #include	<stdlib.h>
 #include	<stdio.h>
 #include	"malloc.h"
+
+#define ALIGN(x) (((((x) - 1) >> 2) << 2) + 4)
 
 t_metaData	*head = NULL;
 t_metaData	*tail = NULL;
@@ -19,45 +21,61 @@ size_t		alloc_nb = 0;
 void		*malloc(size_t taille)
 {
   t_metaData	*curr;
-  size_t	stop;
   void		*start;
   void		*ret;
   t_metaData	*new;
 
+  if (!taille)
+    return (NULL);
   curr = head;
   if (curr)
     {
       if (curr->free == 1 && curr->size == taille)
-	{
-	  curr->free = 0;
-	  return (curr + 1);
-	}
+  	{
+  	  curr->free = 0;
+  	  return (curr + 1);
+  	}
       else
-	{
-	  stop = 0;
-	  while (curr->next && stop < alloc_nb)
-	    {
-	      if (curr->next->free == 1 && curr->next->size == taille)
-		{
-		  curr->free = 0;
-		  return (curr->next + 1);
-		}
-	      ++stop;
-	      curr = curr->next;
-	    }
-	}
+  	{
+  	  while (curr->next)
+  	    {
+  	      if (curr->next->free == 1 && curr->next->size == taille)
+  		{
+  		  curr->next->free = 0;
+  		  return (curr->next + 1);
+  		}
+  	      curr = curr->next;
+  	    }
+  	}
     }
-  start = sbrk(sizeof(t_metaData) + taille);
+  if ((start = sbrk(sizeof(t_metaData) + taille)) == (void*) -1)
+    return (NULL);
   ret = start + sizeof(t_metaData);
   new = start;
   new->size = taille;
   new->free = 0;
-  new->next = tail;
-  ++alloc_nb;
+  new->next = NULL;
   tail = new;
+  ++alloc_nb;
   if (!head)
-    head = start;
+    head = new;
   else
     curr->next = new;
   return (ret);
+}
+
+void		show_alloc_mem()
+{
+  t_metaData	*tmp;
+
+  printf("break : %p\n", sbrk(0));
+  tmp = head;
+  while (tmp)
+    {
+      if (tmp->free == 0)
+	printf("%p - %p : %zu octets\n", tmp + sizeof(t_metaData),
+	       tmp + (tmp->size + sizeof(t_metaData)),
+	       tmp->size);
+      tmp = tmp->next;
+    }
 }
