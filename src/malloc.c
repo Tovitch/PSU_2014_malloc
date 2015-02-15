@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Tue Jan 27 12:27:26 2015 kruszk_t
-** Last update Tue Feb 10 12:49:04 2015 kruszk_t
+** Last update Sun Feb 15 17:13:17 2015 kruszk_t
 */
 
 #include	<stdlib.h>
@@ -74,7 +74,7 @@ void		show_alloc_mem()
     {
       if (tmp->free == 0)
 	printf("%p - %p : %zu octets\n", tmp + sizeof(t_metaData),
-	       tmp + (tmp->size + sizeof(t_metaData)),
+	       tmp + tmp->size + sizeof(t_metaData),
 	       tmp->size);
       tmp = tmp->next;
     }
