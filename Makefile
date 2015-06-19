@@ -5,7 +5,7 @@
 ## Login   <kruszk_t@epitech.net>
 ## 
 ## Started on  Sun Feb 15 16:48:10 2015 kruszk_t
-## Last update Sun Feb 15 17:08:17 2015 kruszk_t
+## Last update Thu Jun 18 16:45:03 2015 Tony Kruszkewycz
 ##
 
 
@@ -13,7 +13,6 @@ SRC		= src/malloc.c		\
 		  src/realloc.c		\
 		  src/calloc.c		\
 		  src/free.c		\
-		  src/show_alloc_mem.c
 
 NAME		= libmy_malloc_$(HOSTTYPE).so
 
@@ -23,7 +22,7 @@ CC		= gcc
 
 RM		= rm -f
 
-CFLAGS		+= -Wall -Wextra -ansi -pedantic -I./inc -D_BSD_SOURCE
+CFLAGS		+= -Wall -Wextra -ansi -pedantic -I./inc -D_DEFAULT_SOURCE
 
 all:		$(NAME)
 

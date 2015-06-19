@@ -5,16 +5,19 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:13:18 2015 kruszk_t
-** Last update Wed Jan 28 12:05:28 2015 kruszk_t
+** Last update Thu Jun 18 18:41:27 2015 Tony Kruszkewycz
 */
 
-#include	<stdlib.h>
-#include	<string.h>
-#include	"malloc.h"
+#include		<stdlib.h>
+#include		<string.h>
+#include		"malloc.h"
 
-void		*realloc(void *ptr, size_t size)
+extern t_metaData	*g_head;
+extern t_metaData	*g_tail;
+
+void			*realloc(void *ptr, size_t size)
 {
-  void		*ret;
+  void			*ret;
 
   if (!size)
     {

@@ -5,22 +5,23 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 11:23:47 2015 kruszk_t
-** Last update Wed Jan 28 11:28:39 2015 kruszk_t
+** Last update Fri Jun 19 14:08:45 2015 Tony Kruszkewycz
 */
 
 #include	<stdlib.h>
+#include	<string.h>
 #include	"malloc.h"
 
 void		*calloc(size_t n, size_t t)
 {
-  char		*ret;
-  size_t	i;
+  void		*ret;
+  size_t	size;
 
   if (!n || !t)
     return (NULL);
-  if (!(ret = malloc(n * t)))
+  size = n * t;
+  if (!(ret = malloc(size)))
     return (NULL);
-  for (i = 0; i < n * t; ++i)
-    ret[i] = 0;
-  return ((void*)ret);
+  bzero(ret, size);
+  return (ret);
 }

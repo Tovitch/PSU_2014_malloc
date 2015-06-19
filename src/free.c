@@ -5,15 +5,14 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:11:18 2015 kruszk_t
-** Last update Tue Feb 10 12:50:47 2015 kruszk_t
+** Last update Fri Jun 19 13:53:29 2015 Tony Kruszkewycz
 */
 
 #include	<stdio.h>
 #include	"malloc.h"
 
-extern size_t	alloc_nb;
-extern t_metaData *head;
-extern t_metaData *tail;
+extern t_metaData *g_head;
+extern t_metaData *g_tail;
 
 void		free(void *ptr)
 {
@@ -23,15 +22,14 @@ void		free(void *ptr)
   if (!ptr)
     return ;
   m = (t_metaData*)ptr - 1;
-  if (m == tail)
+  if (m == g_tail && g_head != g_tail)
     {
-      tmp = head;
+      tmp = g_head;
       while (tmp->next != m)
-  	tmp = tmp->next;
-      brk(m);
+      	tmp = tmp->next;
       tmp->next = NULL;
+      brk(m);
     }
   else
     m->free = 1;
-  --alloc_nb;
 }
