@@ -5,7 +5,7 @@
 ## Login   <kruszk_t@epitech.net>
 ## 
 ## Started on  Sun Feb 15 16:48:10 2015 kruszk_t
-## Last update Thu Jun 18 16:45:03 2015 Tony Kruszkewycz
+## Last update Tue Jun 23 19:02:46 2015 Tony Kruszkewycz
 ##
 
 
@@ -15,6 +15,8 @@ SRC		= src/malloc.c		\
 		  src/free.c		\
 
 NAME		= libmy_malloc_$(HOSTTYPE).so
+
+LNNAME		= libmy_malloc.so
 
 OBJ		= $(SRC:.c=.o)
 
@@ -28,12 +30,13 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 		$(CC) -fPIC -shared $(SRC) -o $(NAME) -I./inc
+		ln -s $(NAME) $(LNNAME)
 
 clean:
 		$(RM) $(OBJ)
 
 fclean:		clean
-		rm -f $(NAME)
+		rm -f $(NAME) $(LNNAME)
 
 re:		fclean all
 
