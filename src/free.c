@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:11:18 2015 kruszk_t
-** Last update Fri Jun 19 13:53:29 2015 Tony Kruszkewycz
+** Last update Fri Jun 26 10:49:27 2015 Tony Kruszkewycz
 */
 
 #include	<stdio.h>
@@ -21,15 +21,21 @@ void		free(void *ptr)
 
   if (!ptr)
     return ;
-  m = (t_metaData*)ptr - 1;
-  if (m == g_tail && g_head != g_tail)
+  m = (t_metaData *)ptr - 1;
+  tmp = g_head;
+  while (tmp && tmp != m)
+    tmp = tmp->next;
+  if (tmp == m)
     {
-      tmp = g_head;
-      while (tmp->next != m)
-      	tmp = tmp->next;
-      tmp->next = NULL;
-      brk(m);
+      if (m == g_tail && g_head != g_tail)
+	{
+	  tmp = g_head;
+	  while (tmp->next != m)
+	    tmp = tmp->next;
+	  tmp->next = NULL;
+	  brk(m);
+	}
+      else
+	m->free = 1;
     }
-  else
-    m->free = 1;
 }

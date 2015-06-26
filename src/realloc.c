@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:13:18 2015 kruszk_t
-** Last update Thu Jun 18 18:41:27 2015 Tony Kruszkewycz
+** Last update Fri Jun 26 10:47:43 2015 Tony Kruszkewycz
 */
 
 #include		<stdlib.h>
@@ -17,18 +17,28 @@ extern t_metaData	*g_tail;
 
 void			*realloc(void *ptr, size_t size)
 {
+  t_metaData		*tmp;
+  t_metaData		*b;
   void			*ret;
 
-  if (!size)
+  b = (t_metaData *)ptr - 1;
+  tmp = g_head;
+  while (tmp && tmp != b)
+    tmp = tmp->next;
+  if (tmp == b)
     {
+      if (!size)
+	{
+	  free(ptr);
+	  return (NULL);
+	}
+      if (!(ret = malloc(size)))
+	return (NULL);
+      if (!ptr)
+	return (ret);
+      memcpy(ret, ptr, size);
       free(ptr);
-      return (NULL);
+      return (ret);
     }
-  if (!(ret = malloc(size)))
-    return (NULL);
-  if (!ptr)
-    return (ret);
-  memcpy(ret, ptr, size);
-  free(ptr);
-  return (ret);
+  return (NULL);
 }

@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Tue Jan 27 12:27:26 2015 kruszk_t
-** Last update Fri Jun 19 14:06:09 2015 Tony Kruszkewycz
+** Last update Fri Jun 26 10:49:51 2015 Tony Kruszkewycz
 */
 
 #include	<stdlib.h>
@@ -53,7 +53,7 @@ void		*malloc(size_t taille)
   curr = g_head;
   if ((tmp = find_block(&curr, taille)) != NULL)
     return (tmp);
-  if ((start = sbrk(sizeof(t_metaData) + taille)) == (void*)-1)
+  if ((start = sbrk(sizeof(t_metaData) + taille)) == (void *)-1)
     return (NULL);
   new = start;
   new->size = taille;
@@ -76,8 +76,8 @@ void		show_alloc_mem()
   while (tmp)
     {
       if (tmp->free == 0)
-	printf("%p - %p : %u octets\n", (void*)(tmp + sizeof(t_metaData)),
-	       (void*)(tmp + tmp->size + sizeof(t_metaData)),
+	printf("%p - %p : %u octets\n", (void *)(tmp + sizeof(t_metaData)),
+	       (void *)(tmp + tmp->size + sizeof(t_metaData)),
 	       (unsigned int)tmp->size);
       tmp = tmp->next;
     }

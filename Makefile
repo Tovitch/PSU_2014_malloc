@@ -5,7 +5,7 @@
 ## Login   <kruszk_t@epitech.net>
 ## 
 ## Started on  Sun Feb 15 16:48:10 2015 kruszk_t
-## Last update Tue Jun 23 19:02:46 2015 Tony Kruszkewycz
+## Last update Wed Jun 24 13:00:57 2015 Tony Kruszkewycz
 ##
 
 
@@ -25,11 +25,14 @@ CC		= gcc
 RM		= rm -f
 
 CFLAGS		+= -Wall -Wextra -ansi -pedantic -I./inc -D_DEFAULT_SOURCE
+CFLAGS		+= -fPIC
 
-all:		$(NAME)
+all:		$(NAME) $(LNNAME)
 
 $(NAME):	$(OBJ)
-		$(CC) -fPIC -shared $(SRC) -o $(NAME) -I./inc
+		$(CC) -shared $(OBJ) -o $(NAME) -I./inc
+
+$(LNNAME):
 		ln -s $(NAME) $(LNNAME)
 
 clean:
