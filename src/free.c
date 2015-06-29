@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:11:18 2015 kruszk_t
-** Last update Mon Jun 29 12:08:06 2015 Tony Kruszkewycz
+** Last update Mon Jun 29 16:56:41 2015 Tony Kruszkewycz
 */
 
 #include		<stdio.h>
@@ -17,10 +17,21 @@ extern t_metaData	*g_head;
 extern t_metaData	*g_tail;
 extern pthread_mutex_t	m;
 
+void			set_brk(t_metaData *b)
+{
+  t_metaData		*tmp;
+
+  tmp = g_head;
+  while (tmp->next != b)
+    tmp = tmp->next;
+  tmp->next = NULL;
+  g_tail = tmp;
+  brk(b);
+}
+
 void			free(void *ptr)
 {
   t_metaData		*b;
-  t_metaData		*tmp;
 
   if (!ptr)
     return ;
@@ -35,14 +46,7 @@ void			free(void *ptr)
 	  brk(b);
 	}
       else if (b == g_tail)
-	{
-	  tmp = g_head;
-	  while (tmp->next != b)
-	    tmp = tmp->next;
-	  tmp->next = NULL;
-	  g_tail = tmp;
-	  brk(b);
-	}
+	set_brk(b);
       else
 	b->free = 1;
     }
