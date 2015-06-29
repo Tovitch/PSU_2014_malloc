@@ -5,7 +5,7 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:13:18 2015 kruszk_t
-** Last update Fri Jun 26 10:47:43 2015 Tony Kruszkewycz
+** Last update Mon Jun 29 10:55:46 2015 Tony Kruszkewycz
 */
 
 #include		<stdlib.h>
@@ -15,17 +15,27 @@
 extern t_metaData	*g_head;
 extern t_metaData	*g_tail;
 
-void			*realloc(void *ptr, size_t size)
+int			is_ptr_list(t_metaData *ptr)
 {
   t_metaData		*tmp;
+
+  tmp = g_head;
+  while (tmp)
+    {
+      if (tmp == ptr)
+	return (EXIT_SUCCESS);
+      tmp = tmp->next;
+    }
+  return (EXIT_FAILURE);
+}
+
+void			*realloc(void *ptr, size_t size)
+{
   t_metaData		*b;
   void			*ret;
 
   b = (t_metaData *)ptr - 1;
-  tmp = g_head;
-  while (tmp && tmp != b)
-    tmp = tmp->next;
-  if (tmp == b)
+  if (is_ptr_list(b) == EXIT_SUCCESS)
     {
       if (!size)
 	{
@@ -40,5 +50,5 @@ void			*realloc(void *ptr, size_t size)
       free(ptr);
       return (ret);
     }
-  return (NULL);
+  return (malloc(size));
 }

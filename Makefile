@@ -5,7 +5,7 @@
 ## Login   <kruszk_t@epitech.net>
 ## 
 ## Started on  Sun Feb 15 16:48:10 2015 kruszk_t
-## Last update Wed Jun 24 13:00:57 2015 Tony Kruszkewycz
+## Last update Mon Jun 29 11:42:23 2015 Tony Kruszkewycz
 ##
 
 
@@ -30,7 +30,7 @@ CFLAGS		+= -fPIC
 all:		$(NAME) $(LNNAME)
 
 $(NAME):	$(OBJ)
-		$(CC) -shared $(OBJ) -o $(NAME) -I./inc
+		$(CC) -shared $(OBJ) -o $(NAME) -I./inc -lpthread
 
 $(LNNAME):
 		ln -s $(NAME) $(LNNAME)

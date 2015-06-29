@@ -5,37 +5,46 @@
 ** Login   <kruszk_t@epitech.net>
 **
 ** Started on  Wed Jan 28 10:11:18 2015 kruszk_t
-** Last update Fri Jun 26 10:49:27 2015 Tony Kruszkewycz
+** Last update Mon Jun 29 12:08:06 2015 Tony Kruszkewycz
 */
 
-#include	<stdio.h>
-#include	"malloc.h"
+#include		<stdio.h>
+#include		<stdlib.h>
+#include		<pthread.h>
+#include		"malloc.h"
 
-extern t_metaData *g_head;
-extern t_metaData *g_tail;
+extern t_metaData	*g_head;
+extern t_metaData	*g_tail;
+extern pthread_mutex_t	m;
 
-void		free(void *ptr)
+void			free(void *ptr)
 {
-  t_metaData	*m;
-  t_metaData	*tmp;
+  t_metaData		*b;
+  t_metaData		*tmp;
 
   if (!ptr)
     return ;
-  m = (t_metaData *)ptr - 1;
-  tmp = g_head;
-  while (tmp && tmp != m)
-    tmp = tmp->next;
-  if (tmp == m)
+  b = (t_metaData *)ptr - 1;
+  pthread_mutex_lock(&m);
+  if (is_ptr_list(b) == EXIT_SUCCESS)
     {
-      if (m == g_tail && g_head != g_tail)
+      if (b == g_tail && g_tail == g_head)
+	{
+	  g_head = NULL;
+	  g_tail = NULL;
+	  brk(b);
+	}
+      else if (b == g_tail)
 	{
 	  tmp = g_head;
-	  while (tmp->next != m)
+	  while (tmp->next != b)
 	    tmp = tmp->next;
 	  tmp->next = NULL;
-	  brk(m);
+	  g_tail = tmp;
+	  brk(b);
 	}
       else
-	m->free = 1;
+	b->free = 1;
     }
+  pthread_mutex_unlock(&m);
 }
